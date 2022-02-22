@@ -1,0 +1,9 @@
+.container {
+  display: grid;
+  grid-template-columns: minmax(230px, 30%) 1fr;
+  height: 100%;
+
+  .sideContentWrapper {
+    border-right: 1px solid var(--color-border);
+  }
+}
