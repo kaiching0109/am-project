@@ -9,6 +9,7 @@
 // Apply :active effect
 @mixin active {
   background-color: var(--color-white);
+  background-image: linear-gradient(right, var(--color-active), var(--color-white));
   background-image: -webkit-linear-gradient(right, var(--color-active), var(--color-white));
 }
 
@@ -17,6 +18,24 @@
   font-family: $font-family;
   font-size: $size;
   font-weight: $weight;
+}
+
+@mixin text-overflow-n($n) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: $n;
+  -webkit-box-orient: vertical;
+}
+
+@mixin text-overflow-1 {
+  @include text-overflow-n(1);
+}
+
+@mixin text-overflow-2 {
+  @include text-overflow-n(2);
 }
 
 // Small devices

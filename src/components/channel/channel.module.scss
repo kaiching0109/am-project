@@ -1,0 +1,25 @@
+// ont-weight: 600;
+//     font-size: .85rem;
+//     display: inline-block;
+@import '../../styles/mixins';
+
+.button {
+  @include font($size: .85rem, $weight: 600);
+  width: 100%;
+  padding: .625rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-channel-border);
+  height: 60px;
+
+  &.active {
+    @include active;
+  }
+
+  &:hover {
+    @include hover;
+  }
+
+  .label {
+    @include text-overflow-2;
+  }
+}
