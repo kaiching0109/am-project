@@ -1,0 +1,15 @@
+.container {
+  
+  .header {
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    min-height: 64px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}
