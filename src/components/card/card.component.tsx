@@ -3,7 +3,7 @@ import styles from './card.module.scss';
 
 interface CardProps {
   title: string;
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 export default function Card(props: CardProps): React.ReactElement {
