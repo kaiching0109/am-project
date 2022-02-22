@@ -1,0 +1,17 @@
+@import './variables.scss';
+
+@mixin hover {
+  background-color: var(--color-white);
+  background-image: -webkit-linear-gradient(right, var(--color-hover), var(--color-white));
+}
+
+@mixin active {
+  background-color: var(--color-white);
+  background-image: -webkit-linear-gradient(right, var(--color-active), var(--color-white));
+}
+
+// @mixin font($font-family: $base-font, $size, $weight: 300) {
+//   font-family: $font-family;
+//   font-size: $size;
+//   font-weight: $weight;
+// }

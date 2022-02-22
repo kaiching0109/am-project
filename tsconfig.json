@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "./src",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,7 +21,14 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  // "paths": {
+  //   "@components": ["./src/components"],
+  //   "@pages": ["./src/pages"],
+  //   "@helpers": ["./src/helpers"],
+  //   "@styles": ["./src/styles"]
+  // },
   "include": [
-    "src"
+    "src",
+    "typed-css.d.ts",
   ]
 }
