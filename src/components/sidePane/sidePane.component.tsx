@@ -1,10 +1,11 @@
 import React from 'react';
+import Channel from '../channel/channel.component';
 import Select from '../select/select.component';
 import styles from './sidePane.module.scss';
 
 export default function SidePane(): React.ReactElement {
   return (
-    <aside className={styles.container}>
+    <aside className={styles.root}>
       <dl className={styles.list}>
         <dt className={styles.title}>1. Choose your user</dt>
         <dd className={styles.content}>
@@ -17,7 +18,9 @@ export default function SidePane(): React.ReactElement {
           />
         </dd>
         <dt className={styles.title}>2. Choose your Channel</dt>
-        <dd className={styles.content}>Channels</dd>
+        <dd className={styles.content}>
+          <Channel />
+        </dd>
       </dl>
     </aside>
   );

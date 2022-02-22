@@ -5,16 +5,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
 
-.image {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-}
-
-.label {
-  @include font($size: .75rem);
-  text-align: center;
-  color: var(--color-light);
+  .image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+  
+  .label {
+    @include font($size: .75rem);
+    text-align: center;
+    color: var(--color-light);
+  }  
 }
