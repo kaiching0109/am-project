@@ -1,22 +1,17 @@
 import React from 'react';
 import '../../styles/index.scss';
+import Card from '../card/card.component';
 import PageContainer from '../pageContainer/pageContainer.component';
+import WithSideContent from '../../hoc/withSideContent/withSideContent.component';
 
 export default function App(): React.ReactElement {
   return (
     <PageContainer>
-      <div className="card">
-        <aside className="sidebar">
-          <dl>
-            <dt>1. Choose your user</dt>
-            <dd>Select</dd>
-          </dl>
-          <dl>
-            <dt>2. Choose your Channel</dt>
-            <dd>Channels</dd>
-          </dl>
-        </aside>
-      </div>
+      <WithSideContent>
+        <Card title="LGTM Channel">
+          <p>?!?!?!?!</p>
+        </Card>
+      </WithSideContent>
     </PageContainer>
   );
 }
