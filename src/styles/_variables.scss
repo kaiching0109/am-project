@@ -1,3 +1,4 @@
+// #region colors
 :root {
   // theme colors
   --color-primary: #17a2b8;
@@ -15,5 +16,17 @@
   // specific colors
   --color-background: #f4f5fb;
 }
+// #endregion
 
-$base-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"
+// #region breakpoints
+// Small tablets and large smartphones (landscape view)
+$screen-sm: 576px;
+// Small tablets (portrait view)
+$screen-md: 768px;
+// Tablets and small desktops
+$screen-lg: 992px;
+// Large tablets and desktops
+$screen-xl: 1200px;
+// #endregion
+
+$base-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";

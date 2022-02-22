@@ -1,18 +1,24 @@
 import React from 'react';
 import styles from './pageContainer.module.scss';
 
-export default function PageContainer(props: {
+interface PageContainerProps {
   children: React.ReactElement;
-}): React.ReactElement {
+}
+
+export default function PageContainer(
+  props: PageContainerProps,
+): React.ReactElement {
   const { children } = props;
 
   return (
-    <section className={styles.container}>
-      <header className="page-title">
-        <h1>1 day chat App</h1>
-        <p>All messages will be deleted at every 00:00 UTC</p>
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>1 day chat App</h1>
+        <p className={styles.description}>
+          All messages will be deleted at every 00:00 UTC
+        </p>
       </header>
-      <div className="content-wrapper">{children}</div>
-    </section>
+      <div className={styles.contentWrapper}>{children}</div>
+    </main>
   );
 }
