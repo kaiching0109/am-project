@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Channel from '../channel/channel.component';
 import Select from '../select/select.component';
 import styles from './sidePane.module.scss';
@@ -6,7 +6,7 @@ import constant from '../../constants/constants';
 import { UserContext } from '../../context/userContext';
 
 export default function SidePane(): React.ReactElement {
-  const { updateUser } = React.useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
   /**
    * TODO:
    * @param event React.ChangeEventHandler<HTMLSelectElement>

@@ -1,13 +1,13 @@
-import React from 'react';
-// import constants from '../constants/constants';
+import React, { useState, useMemo } from 'react';
+import constants from '../constants/constants';
 
 // interface IUser {
 //   user: string;
 // }
 
-// interface UserProviderProps {
-//   children: React.ReactElement;
-// }
+interface UserProviderProps {
+  children: React.ReactElement;
+}
 
 export type ContextType = {
   user: string;
@@ -17,21 +17,36 @@ export type ContextType = {
 
 export const UserContext = React.createContext({} as ContextType);
 
-// function UserProvider(props: UserProviderProps) {
-//   const [user, setUser] = useState<string | null>(null);
-//   const { children } = props;
+export default function UserProvider(props: UserProviderProps) {
+  const { children } = props;
+  const [user, setUser] = useState(constants.USERS[0]?.value);
 
-//   // eslint-disable-next-line no-unused-vars
-//   const updateUser = (id: string) => {
-//     console.log('!!!');
-//     const matchUser = constants.USERS.find(
-//       ({ value }: { value: string }) => id === value,
-//     );
-//     if (matchUser && user !== matchUser?.value) {
-//       setUser(matchUser?.value);
-//     }
-//   };
-//   return children;
-// }
+  /**
+   * TODO:
+   */
+  const updateUser = React.useCallback(
+    (id: string) => {
+      const matchUser = constants.USERS.find(
+        ({ value }: { value: string }) => id === value,
+      );
+      if (matchUser && user !== matchUser?.value) {
+        setUser(matchUser?.value);
+      }
+    },
+    [user],
+  );
 
-// export default UserProvider;
+  const providerProps = useMemo(
+    () => ({
+      user,
+      updateUser,
+    }),
+    [user, updateUser],
+  );
+
+  return (
+    <UserContext.Provider value={providerProps}>
+      {children}
+    </UserContext.Provider>
+  );
+}
