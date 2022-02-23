@@ -8,6 +8,9 @@ import {
 } from '@apollo/client';
 import constants from './constants/constants';
 import App from './components/app/app.component';
+import UserProvider from './context/userContext';
+import ChannelProvider from './context/channelContext';
+import WithCompose from './hoc/withCompose/withCompose';
 // import "regenerator-runtime/runtime";
 
 const httpLink = createHttpLink({
@@ -21,7 +24,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <WithCompose components={[UserProvider, ChannelProvider]}>
+        <App />
+      </WithCompose>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),

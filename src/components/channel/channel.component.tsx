@@ -10,14 +10,15 @@ export default function Channel(): React.ReactElement {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     const { id } = event.currentTarget as HTMLElement;
-    if (channel !== id) {
+    console.log({ channel });
+    if (channel.id !== id) {
       updateChannel(id);
     }
   };
 
   const getButtonClass = (id: string) => {
     const classList = [styles.button];
-    if (id === channel) {
+    if (id === channel.id) {
       classList.push(styles.active);
     }
     return classList.join(' ');

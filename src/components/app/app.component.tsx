@@ -1,34 +1,34 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../styles/index.scss';
 import Card from '../card/card.component';
 import PageContainer from '../pageContainer/pageContainer.component';
 import WithSideContent from '../../hoc/withSideContent/withSideContent.component';
 import WithReadMore from '../../hoc/withReadMore/withReadMore.component';
 import constants from '../../constants/constants';
-import UserProvider from '../../context/userContext';
 import ChatPane from '../chatPane/chatPane.component';
 import ChatForm from '../chatForm/chatForm.component';
-import ChannelProvider from '../../context/channelContext';
-import WithCompose from '../../hoc/withCompose/withCompose';
+import { Channel, ChannelContext } from '../../context/channelContext';
 
 function App(): React.ReactElement {
+  const { channel } = useContext(ChannelContext);
+
+  const getChannelLabel = (current: Channel) => `${current.name} Channel`;
+
   return (
-    <WithCompose components={[UserProvider, ChannelProvider]}>
-      <PageContainer
-        title={constants.TEXT.APP_TEXT_TITLE}
-        description={constants.TEXT.APP_TEXT_DESCRIPTION}
-      >
-        <WithSideContent>
-          <Card title="LGTM Channel">
-            <WithReadMore>
-              <ChatPane />
-            </WithReadMore>
-            <ChatForm />
-          </Card>
-        </WithSideContent>
-      </PageContainer>
-    </WithCompose>
+    <PageContainer
+      title={constants.TEXT.APP_TEXT_TITLE}
+      description={constants.TEXT.APP_TEXT_DESCRIPTION}
+    >
+      <WithSideContent>
+        <Card title={getChannelLabel(channel)}>
+          <WithReadMore>
+            <ChatPane />
+          </WithReadMore>
+          <ChatForm />
+        </Card>
+      </WithSideContent>
+    </PageContainer>
   );
 }
 
