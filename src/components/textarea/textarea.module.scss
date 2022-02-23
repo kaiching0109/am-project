@@ -1,0 +1,14 @@
+@import '../../styles/mixins'; 
+
+.root {
+  @include font($weight: 400);
+  @include form-control;
+  resize: vertical;
+  height: auto;
+
+  &:focus {
+    border-color: var(--color-focus);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+  }
+}
