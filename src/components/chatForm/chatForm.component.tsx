@@ -51,7 +51,7 @@ export default function ChatForm(): React.ReactElement {
   };
 
   return (
-    <form onSubmit={handleMessageSubmit}>
+    <form className={styles.form} onSubmit={handleMessageSubmit}>
       <Textarea
         rows={3}
         value={message}
