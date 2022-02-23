@@ -8,10 +8,14 @@ import { IconButton } from '../button/button.component';
 import Chat from '../chat/chat.component';
 import WithReadMore from '../../hoc/withReadMore/withReadMore.component';
 import Textarea from '../textarea/textarea.component';
+import constants from '../../constants/constants';
 
 export default function App(): React.ReactElement {
   return (
-    <PageContainer>
+    <PageContainer
+      title={constants.TEXT.APP_TEXT_TITLE}
+      description={constants.TEXT.APP_TEXT_DESCRIPTION}
+    >
       <WithSideContent>
         <Card title="LGTM Channel">
           <WithReadMore>
@@ -37,9 +41,15 @@ export default function App(): React.ReactElement {
             />
           </WithReadMore>
           <div className={styles.form}>
-            <Textarea rows={3} placeholder="Type your message here..." />
+            <Textarea
+              rows={3}
+              placeholder={constants.TEXT.TEXTAREA_TEXT_PLACEHOLDER}
+            />
             <div className={styles.formAction}>
-              <IconButton icon="fa fa-send" label="Send Message" />
+              <IconButton
+                icon="fa fa-send"
+                label={constants.TEXT.BUTTON_TEXT_SEND}
+              />
             </div>
           </div>
         </Card>
