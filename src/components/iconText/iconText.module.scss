@@ -1,0 +1,16 @@
+@import '../../styles/mixins';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: .25rem;
+  padding-right: .25rem;
+
+  .text {
+    @include font($size: .75rem);
+    color: var(--color-light);
+    padding-left: .125rem;
+    padding-right: .125rem;
+  }
+}
