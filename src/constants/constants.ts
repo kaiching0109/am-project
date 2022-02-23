@@ -4,6 +4,12 @@ const USERS = [
   { label: 'Russell', value: 'Russell' },
 ];
 
+const CHANNELS = [
+  { id: '1', label: 'General', value: 'General' },
+  { id: '2', label: 'Technology', value: 'Technology' },
+  { id: '3', label: 'LGTM', value: 'LGTM' },
+];
+
 const TEXT = {
   APP_TEXT_TITLE: '1 day chat App',
   APP_TEXT_DESCRIPTION: 'All messages will be deleted at every 00:00 UTC',
@@ -18,4 +24,9 @@ const URL = {
   API: 'https://angular-test-backend-yc4c5cvnnq-an.a.run.app/graphql',
 };
 
-export default { USERS, TEXT, URL };
+export default {
+  USERS,
+  CHANNELS,
+  TEXT,
+  URL,
+};
