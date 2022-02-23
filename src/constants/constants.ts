@@ -14,4 +14,8 @@ const TEXT = {
   BUTTON_TEXT_SEND: 'Send Message',
 };
 
-export default { USERS, TEXT };
+const URL = {
+  API: 'https://angular-test-backend-yc4c5cvnnq-an.a.run.app/graphql',
+};
+
+export default { USERS, TEXT, URL };

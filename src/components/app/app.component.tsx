@@ -1,15 +1,14 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import '../../styles/index.scss';
-import styles from './app.module.scss';
 import Card from '../card/card.component';
 import PageContainer from '../pageContainer/pageContainer.component';
 import WithSideContent from '../../hoc/withSideContent/withSideContent.component';
-import { IconButton } from '../button/button.component';
 import WithReadMore from '../../hoc/withReadMore/withReadMore.component';
-import Textarea from '../textarea/textarea.component';
 import constants from '../../constants/constants';
 import UserProvider from '../../context/userContext';
 import ChatPane from '../chatPane/chatPane.component';
+import ChatForm from '../chatForm/chatForm.component';
 
 export default function App(): React.ReactElement {
   return (
@@ -23,18 +22,7 @@ export default function App(): React.ReactElement {
             <WithReadMore>
               <ChatPane />
             </WithReadMore>
-            <div className={styles.form}>
-              <Textarea
-                rows={3}
-                placeholder={constants.TEXT.TEXTAREA_TEXT_PLACEHOLDER}
-              />
-              <div className={styles.formAction}>
-                <IconButton
-                  icon="fa fa-send"
-                  label={constants.TEXT.BUTTON_TEXT_SEND}
-                />
-              </div>
-            </div>
+            <ChatForm />
           </Card>
         </WithSideContent>
       </PageContainer>
