@@ -51,9 +51,11 @@ export default function Chat(props: ChatProps): React.ReactElement {
   return (
     <div className={getChatClass()}>
       <div className={styles.inner}>
-        <Profile imgSrc={profile?.imgSrc} name={profile?.name} />
-        <div className={styles.messageBox}>
-          <p className={styles.message}>{message}</p>
+        <div className={styles.mainBox}>
+          <Profile imgSrc={profile?.imgSrc} name={profile?.name} />
+          <div className={styles.messageBox}>
+            <p className={styles.message}>{message}</p>
+          </div>
         </div>
         <div className={styles.infoBox}>
           {renderStatusText()}

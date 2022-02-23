@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Chat from '../chat/chat.component';
+import styles from './chatPane.module.scss';
 import { UserContext } from '../../context/userContext';
 
 export default function ChatPane(): React.ReactElement {
@@ -7,7 +8,7 @@ export default function ChatPane(): React.ReactElement {
 
   return (
     <ul>
-      <li>
+      <li className={styles.item}>
         <Chat
           profile={{ name: user, imgSrc: `${user}.png` }}
           message="Hello, I'm Russell."
@@ -15,7 +16,7 @@ export default function ChatPane(): React.ReactElement {
           direction="l"
         />
       </li>
-      <li>
+      <li className={styles.item}>
         <Chat
           profile={{ name: 'Russell', imgSrc: 'Russell.png' }}
           message="Hello, I'm Russell."
@@ -24,7 +25,7 @@ export default function ChatPane(): React.ReactElement {
           direction="r"
         />
       </li>
-      <li>
+      <li className={styles.item}>
         <Chat
           profile={{ name: user, imgSrc: `${user}.png` }}
           message="Hello, I'm Russell."

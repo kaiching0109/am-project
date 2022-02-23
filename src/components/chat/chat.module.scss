@@ -3,10 +3,29 @@
 .root {
   display: block;
 
-  .messageBox {
-    margin-left: 1.25rem;
-    margin-right: .625rem;
-  }
+  // TODO:
+  // @include sm {
+  //   .mainBox {
+  //     width: 100%;
+  //   }
+
+  //   .inner {
+  //     width: 100%;
+  //     flex-direction: column !important;
+  //   }
+
+  //   .infoBox {
+  //     width: 100%;
+  //     justify-content: flex-start;
+  //     margin-top: .5rem;
+  //   }
+
+  //   &.rootRight {
+  //     .mainBox {
+  //       flex-direction: row-reverse;
+  //     }
+  //   }
+  // }
 
   &.rootLeft {
 
@@ -22,13 +41,24 @@
     }
 
     .messageBox {
+      margin-left: .625rem;
+      margin-right: 1.25rem;
 
       &::before {
-        transform: rotateY(180deg);
         left: auto;
         right: -20px;
+        transform: rotateY(180deg);
       }
     }
+  }
+
+  .mainBox {
+    @include flex-center;
+  }
+
+  .messageBox {
+    margin-left: 1.25rem;
+    margin-right: .625rem;
   }
 
   .inner {
@@ -64,8 +94,7 @@
 }
 
 .infoBox {
-  display: flex;
-  align-items: center;
+  @include flex-center;
 }
 
 .info {
