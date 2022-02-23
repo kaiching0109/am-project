@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/index.scss';
+import styles from './app.module.scss';
 import Card from '../card/card.component';
 import PageContainer from '../pageContainer/pageContainer.component';
 import WithSideContent from '../../hoc/withSideContent/withSideContent.component';
@@ -35,9 +36,11 @@ export default function App(): React.ReactElement {
               direction="l"
             />
           </WithReadMore>
-          <div className="form">
+          <div className={styles.form}>
             <Textarea rows={3} placeholder="Type your message here..." />
-            <IconButton icon="fa fa-send" label="Send Message" />
+            <div className={styles.formAction}>
+              <IconButton icon="fa fa-send" label="Send Message" />
+            </div>
           </div>
         </Card>
       </WithSideContent>
