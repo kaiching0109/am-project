@@ -6,15 +6,15 @@
   margin: 0 auto;
 
   .header {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
 
     .title {
       @include font($size: 1.2rem, $weight: 500);
 
       & + .description {
         @include font($weight: 400);
-        margin-top: 8px;
+        margin-top: .5rem;
       }
     }
   }

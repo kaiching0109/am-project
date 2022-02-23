@@ -2,18 +2,7 @@
 
 .root {
   @include font($weight: 400);
-  display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  line-height: 1.5;
-  color: var(--color-select);
-  background-color: var(--color-white);
-  background-clip: padding-box;
-  border: 1px solid var(--color-select-border);
-  border-radius: 4px;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  appearance: auto;
+  @include form-control;
 
   &:focus {
     border-color: var(--color-focus);

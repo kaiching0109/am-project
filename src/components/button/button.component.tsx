@@ -12,7 +12,7 @@ const DEFAULT_COLOR = 'primary';
 function Button(props: ButtonProps): React.ReactElement {
   const { color = DEFAULT_COLOR, children, ...restProps } = props;
   const COLOR_REF = {
-    primary: styles['root-primary'],
+    primary: styles.rootPrimary,
   };
 
   const getButtonClass = (): string => {
