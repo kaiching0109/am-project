@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ChannelContext } from '../../context/channelContext';
 import constants from '../../constants/constants';
 import styles from './channel.module.scss';
-// import Channel from './channel.component';
-
-// interface ChannelProps {
-//   // title: string;
-//   // children: React.ReactElement | React.ReactElement[];
-// }
 
 export default function Channel(): React.ReactElement {
-  // const { title, children } = props;
-  const [current, setCurrent] = useState(constants.CHANNELS[0]?.id);
+  const { channel, updateChannel } = useContext(ChannelContext);
 
   const handleChannelItemClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    const { id } = event.target as HTMLElement;
-    if (current !== id) {
-      setCurrent(id);
+    const { id } = event.currentTarget as HTMLElement;
+    if (channel !== id) {
+      updateChannel(id);
     }
   };
 
   const getButtonClass = (id: string) => {
     const classList = [styles.button];
-    if (id === current) {
+    if (id === channel) {
       classList.push(styles.active);
     }
     return classList.join(' ');

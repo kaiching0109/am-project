@@ -9,10 +9,12 @@ import constants from '../../constants/constants';
 import UserProvider from '../../context/userContext';
 import ChatPane from '../chatPane/chatPane.component';
 import ChatForm from '../chatForm/chatForm.component';
+import ChannelProvider from '../../context/channelContext';
+import WithCompose from '../../hoc/withCompose/withCompose';
 
-export default function App(): React.ReactElement {
+function App(): React.ReactElement {
   return (
-    <UserProvider>
+    <WithCompose components={[UserProvider, ChannelProvider]}>
       <PageContainer
         title={constants.TEXT.APP_TEXT_TITLE}
         description={constants.TEXT.APP_TEXT_DESCRIPTION}
@@ -26,6 +28,8 @@ export default function App(): React.ReactElement {
           </Card>
         </WithSideContent>
       </PageContainer>
-    </UserProvider>
+    </WithCompose>
   );
 }
+
+export default App;
