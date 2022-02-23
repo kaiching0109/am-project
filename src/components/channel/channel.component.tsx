@@ -8,7 +8,6 @@ import styles from './channel.module.scss';
 
 export default function Channel(): React.ReactElement {
   // const { title, children } = props;
-  // console.log(props);
   return (
     <div className={styles.root} aria-label="Channel list" role="grid">
       <ul className={styles.list}>

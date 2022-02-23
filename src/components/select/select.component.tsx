@@ -27,7 +27,9 @@ export default function Select(props: SelectProps): React.ReactElement {
       onChange={handleChange}
     >
       {options.map(({ label, value: optionValue }) => (
-        <option value={optionValue}>{label}</option>
+        <option key={optionValue} value={optionValue}>
+          {label}
+        </option>
       ))}
     </select>
   );
