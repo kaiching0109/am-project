@@ -1,0 +1,14 @@
+.container {
+
+  .innerTop, .innerBottom {
+    position: relative;
+  }
+
+  .innerTop {
+    padding-bottom: 16px;
+  }
+
+  .innerBottom {
+    padding-top: 16px;
+  }
+}
