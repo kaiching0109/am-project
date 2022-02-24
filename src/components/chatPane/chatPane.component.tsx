@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Chat from '../chat/chat.component';
 import styles from './chatPane.module.scss';
@@ -6,9 +6,9 @@ import styles from './chatPane.module.scss';
 import { ChannelContext } from '../../context/channelContext';
 import { toTimeString } from '../../helpers/parser';
 import { findUser } from '../../helpers/utility';
+import { ChatContext } from '../../context/chatContext';
 
 export interface Message {
-  messageId: string;
   text: string;
   datetime: string;
   userId: string;
@@ -17,7 +17,6 @@ export interface Message {
 const GET_MESSAGE_BT_CHANNEL = gql`
   query FetchLatestMessages($channelId: String!) {
     fetchLatestMessages(channelId: $channelId) {
-      messageId
       text
       userId
       datetime
@@ -28,11 +27,31 @@ const GET_MESSAGE_BT_CHANNEL = gql`
 export default function ChatPane(): React.ReactElement {
   // const { user } = useContext(UserContext);
   const { channel } = useContext(ChannelContext);
+  const { chatList, setChat } = useContext(ChatContext);
   const { loading, data, error } = useQuery(GET_MESSAGE_BT_CHANNEL, {
     variables: {
       channelId: channel.id,
     },
   });
+
+  // eslint-disable-next-line consistent-return
+  useEffect((): void => {
+    if (!loading && !error) {
+      const { fetchLatestMessages: result } = data;
+      const parseResult = [...result].reverse().map(
+        // eslint-disable-next-line object-curly-newline
+        ({ text, datetime, userId }: Message) => {
+          const parsedDatetime = toTimeString(datetime);
+          return {
+            text,
+            userId,
+            datetime: parsedDatetime,
+          };
+        },
+      );
+      setChat(parseResult);
+    }
+  }, [loading, error, data, setChat]);
 
   const getDirection = (idx: number): 'l' | 'r' => (idx % 2 === 0 ? 'l' : 'r');
 
@@ -41,7 +60,6 @@ export default function ChatPane(): React.ReactElement {
     if (loading) {
       component = <p>loading...</p>;
     } else if (error) {
-      console.log({ error });
       component = (
         <div>
           <p>Something went wrong...</p>
@@ -55,10 +73,10 @@ export default function ChatPane(): React.ReactElement {
 
     return result.length > 0 ? (
       <ul>
-        {[...result].reverse().map(
+        {chatList.map(
           // eslint-disable-next-line object-curly-newline
-          ({ messageId, text, datetime, userId }: Message, i: number) => {
-            const parsedDatetime = toTimeString(datetime);
+          ({ text, datetime, userId }: Message, i: number) => {
+            // const parsedDatetime = toTimeString(datetime);
             const direction = getDirection(i);
             const matchedUser = findUser(userId);
             const profile = {
@@ -67,11 +85,11 @@ export default function ChatPane(): React.ReactElement {
             };
 
             return (
-              <li className={styles.item} key={messageId}>
+              <li className={styles.item} key={`${userId}_${datetime}`}>
                 <Chat
                   profile={profile}
                   message={text}
-                  time={parsedDatetime}
+                  time={datetime}
                   direction={direction}
                 />
               </li>

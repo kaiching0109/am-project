@@ -16,6 +16,7 @@ export type ContextType = {
   updateUser: (id: string) => void;
 };
 
+// TODO: update userId to User for context value
 export const UserContext = React.createContext({} as ContextType);
 
 export default function UserProvider(props: UserProviderProps) {
