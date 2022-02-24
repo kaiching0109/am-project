@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Chat from '../chat/chat.component';
 import styles from './chatPane.module.scss';
-// import { UserContext } from '../../context/userContext';
+import { UserContext } from '../../context/userContext';
 import { ChannelContext } from '../../context/channelContext';
 import { toTimeString } from '../../helpers/parser';
 import { findUser } from '../../helpers/utility';
@@ -25,7 +25,7 @@ const GET_MESSAGE_BT_CHANNEL = gql`
 `;
 
 export default function ChatPane(): React.ReactElement {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { channel } = useContext(ChannelContext);
   const { chatList, setChat } = useContext(ChatContext);
   const { loading, data, error } = useQuery(GET_MESSAGE_BT_CHANNEL, {
@@ -53,7 +53,9 @@ export default function ChatPane(): React.ReactElement {
     }
   }, [loading, error, data, setChat]);
 
-  const getDirection = (idx: number): 'l' | 'r' => (idx % 2 === 0 ? 'l' : 'r');
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line prettier/prettier
+  const getDirection = (current: string, userId: string): 'l' | 'r' => (current === userId ? 'r' : 'l');
 
   const renderChatList = (): React.ReactElement => {
     let component = <p>There is no message.</p>;
@@ -75,9 +77,9 @@ export default function ChatPane(): React.ReactElement {
       <ul>
         {chatList.map(
           // eslint-disable-next-line object-curly-newline
-          ({ text, datetime, userId }: Message, i: number) => {
+          ({ text, datetime, userId }: Message) => {
             // const parsedDatetime = toTimeString(datetime);
-            const direction = getDirection(i);
+            const direction = getDirection(user, userId);
             const matchedUser = findUser(userId);
             const profile = {
               name: matchedUser?.label ?? '',

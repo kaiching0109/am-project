@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useContext } from 'react';
 import '../../styles/index.scss';
 import Card from '../card/card.component';
