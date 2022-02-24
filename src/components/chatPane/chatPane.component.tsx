@@ -84,7 +84,10 @@ export default function ChatPane(): React.ReactElement {
             }
 
             return (
-              <li className={styles.item} key={`${userId}_${datetime}`}>
+              <li
+                className={styles.item}
+                key={`${userId}_${datetime}_${messageId}`}
+              >
                 <Chat
                   profile={profile}
                   message={text}
