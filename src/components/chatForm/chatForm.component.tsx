@@ -5,6 +5,7 @@ import constants from '../../constants/constants';
 import { UserContext } from '../../context/userContext';
 import Textarea from '../textarea/textarea.component';
 import styles from './chatForm.module.scss';
+import { ChannelContext } from '../../context/channelContext';
 
 const POST_MESSAGE_QUERY = gql`
   mutation PostMessage($channelId: String!, $text: String!, $userId: String!) {
@@ -17,6 +18,7 @@ const POST_MESSAGE_QUERY = gql`
 
 export default function ChatForm(): React.ReactElement {
   const { user } = useContext(UserContext);
+  const { channel } = useContext(ChannelContext);
   const [postMessage] = useMutation(POST_MESSAGE_QUERY);
   const [message, setMessage] = useState('');
 
@@ -29,7 +31,7 @@ export default function ChatForm(): React.ReactElement {
     event.preventDefault();
     postMessage({
       variables: {
-        channelId: '3',
+        channelId: channel?.id,
         text: message,
         userId: user,
       },
@@ -45,9 +47,7 @@ export default function ChatForm(): React.ReactElement {
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const inputMessage = event.target.value;
-    if (inputMessage) {
-      setMessage(inputMessage);
-    }
+    setMessage(inputMessage ?? '');
   };
 
   return (

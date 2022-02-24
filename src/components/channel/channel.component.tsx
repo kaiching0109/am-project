@@ -10,7 +10,6 @@ export default function Channel(): React.ReactElement {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     const { id } = event.currentTarget as HTMLElement;
-    console.log({ channel });
     if (channel.id !== id) {
       updateChannel(id);
     }
@@ -31,7 +30,7 @@ export default function Channel(): React.ReactElement {
     return shouldRender ? (
       <ul className={styles.list}>
         {constants.CHANNELS.map(({ id, label }) => (
-          <li className={styles.item}>
+          <li className={styles.item} key={id}>
             <button
               id={id}
               className={getButtonClass(id)}

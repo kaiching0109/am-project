@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { findUser } from '../helpers/utility';
 import constants from '../constants/constants';
 
 // interface IUser {
@@ -26,9 +27,7 @@ export default function UserProvider(props: UserProviderProps) {
    */
   const updateUser = React.useCallback(
     (id: string) => {
-      const matchUser = constants.USERS.find(
-        ({ value }: { value: string }) => id === value,
-      );
+      const matchUser = findUser(id);
       if (matchUser && user !== matchUser?.value) {
         setUser(matchUser?.value);
       }
