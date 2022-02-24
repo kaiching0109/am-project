@@ -12,6 +12,8 @@ const POST_MESSAGE_QUERY = gql`
   mutation PostMessage($channelId: String!, $text: String!, $userId: String!) {
     postMessage(channelId: $channelId, text: $text, userId: $userId) {
       messageId
+      text
+      userId
       datetime
     }
   }
@@ -20,7 +22,9 @@ const POST_MESSAGE_QUERY = gql`
 export default function ChatForm(): React.ReactElement {
   const { user } = useContext(UserContext);
   const { channel } = useContext(ChannelContext);
-  const { addChat } = useContext(ChatContext);
+  const { chatList, addChat, updateChat } = useContext(ChatContext);
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line operator-linebreak
   const [postMessage] = useMutation(POST_MESSAGE_QUERY);
   const [message, setMessage] = useState('');
 
@@ -29,21 +33,36 @@ export default function ChatForm(): React.ReactElement {
    * TODO:
    * @param event React.SyntheticEvent
    */
-  const handleMessageSubmit = (event: React.SyntheticEvent) => {
+  const handleMessageSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
+    if (!message) {
+      return;
+    }
+
     const messageToPost = {
       channelId: channel?.id,
       text: message,
       userId: user,
     };
-    postMessage({
-      variables: messageToPost,
-    });
+
+    const idx = chatList.length;
     addChat({
       text: messageToPost.text,
       userId: messageToPost.userId,
     });
-    setMessage('');
+
+    try {
+      const {
+        data: { postMessage: result },
+      } = await postMessage({
+        variables: messageToPost,
+      });
+      updateChat(idx, '1', result?.messageId);
+    } catch (e) {
+      updateChat(idx, '-1');
+    } finally {
+      setMessage('');
+    }
   };
 
   /**

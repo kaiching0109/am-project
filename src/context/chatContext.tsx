@@ -1,14 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from 'react';
-import { toTimeString } from '../helpers/parser';
 
 export interface Chat {
-  // messageId: string;
+  messageId?: string;
   text: string;
   datetime: string;
   userId: string;
+  status?: '1' | '0' | '-1';
 }
 
-export type LoadingChat = Omit<Chat, 'datetime'>;
+export type LoadingChat = Omit<Chat, 'datetime' | 'status'>;
 
 interface ChatProviderProps {
   children: React.ReactElement;
@@ -16,9 +17,12 @@ interface ChatProviderProps {
 
 export type ContextType = {
   chatList: Chat[];
-  // eslint-disable-next-line no-unused-vars
   addChat: (chat: LoadingChat) => void;
-  // eslint-disable-next-line no-unused-vars
+  updateChat: (
+    idx: number,
+    status: '1' | '0' | '-1',
+    messageId?: string,
+  ) => void;
   setChat: (chat: Chat[]) => void;
 };
 
@@ -31,15 +35,29 @@ export default function ChatProvider(props: ChatProviderProps) {
   /**
    * TODO:
    */
-  const addChat = React.useCallback(
-    (chat: LoadingChat) => {
-      const newChat = {
-        ...chat,
-        datetime: toTimeString(new Date().toISOString()),
-      };
-      setChatList([...chatList, newChat]);
+  const addChat = React.useCallback((chat: LoadingChat) => {
+    const newChat: Chat = {
+      ...chat,
+      datetime: new Date().toISOString(),
+      status: '0',
+    };
+    setChatList((prevChartList) => [...prevChartList, newChat]);
+  }, []);
+
+  const updateChat = React.useCallback(
+    (idx: number, status: '1' | '0' | '-1', messageId?: string) => {
+      setChatList((prevChartList) => {
+        const targetChat = prevChartList[idx];
+        const newChatList = [...prevChartList];
+        newChatList[idx] = {
+          ...targetChat,
+          status,
+          messageId,
+        };
+        return newChatList;
+      });
     },
-    [chatList],
+    [],
   );
 
   const setChat = React.useCallback((newChatList: Chat[]) => {
@@ -50,9 +68,10 @@ export default function ChatProvider(props: ChatProviderProps) {
     () => ({
       chatList,
       addChat,
+      updateChat,
       setChat,
     }),
-    [chatList, addChat, setChat],
+    [chatList, addChat, updateChat, setChat],
   );
 
   return (

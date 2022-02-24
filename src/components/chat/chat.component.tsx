@@ -11,7 +11,7 @@ import styles from './chat.module.scss';
  */
 interface ChatProps {
   message: string;
-  status?: '1' | '-1';
+  status?: '1' | '0' | '-1';
   time: string;
   profile: {
     imgSrc: string;
@@ -27,6 +27,7 @@ export default function Chat(props: ChatProps): React.ReactElement {
   const STATUS_REF = {
     1: ['Sent', 'fa fa-check-circle', styles.success],
     '-1': ['Error', 'fa fa-exclamation-circle', styles.error],
+    0: [],
   };
 
   const getChatClass = (): string => {

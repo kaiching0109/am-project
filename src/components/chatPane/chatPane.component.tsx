@@ -9,14 +9,17 @@ import { findUser } from '../../helpers/utility';
 import { ChatContext } from '../../context/chatContext';
 
 export interface Message {
+  messageId?: string;
   text: string;
   datetime: string;
   userId: string;
+  status?: '1' | '-1' | '0';
 }
 
 const GET_MESSAGE_BT_CHANNEL = gql`
   query FetchLatestMessages($channelId: String!) {
     fetchLatestMessages(channelId: $channelId) {
+      messageId
       text
       userId
       datetime
@@ -38,20 +41,10 @@ export default function ChatPane(): React.ReactElement {
   useEffect((): void => {
     if (!loading && !error) {
       const { fetchLatestMessages: result } = data;
-      const parseResult = [...result].reverse().map(
-        // eslint-disable-next-line object-curly-newline
-        ({ text, datetime, userId }: Message) => {
-          const parsedDatetime = toTimeString(datetime);
-          return {
-            text,
-            userId,
-            datetime: parsedDatetime,
-          };
-        },
-      );
+      const parseResult = [...result].reverse();
       setChat(parseResult);
     }
-  }, [loading, error, data, setChat]);
+  }, [loading, error, data]);
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line prettier/prettier
@@ -77,22 +70,27 @@ export default function ChatPane(): React.ReactElement {
       <ul>
         {chatList.map(
           // eslint-disable-next-line object-curly-newline
-          ({ text, datetime, userId }: Message) => {
-            // const parsedDatetime = toTimeString(datetime);
+          ({ messageId, text, datetime, userId, status }: Message) => {
+            const parsedDatetime = toTimeString(datetime);
             const direction = getDirection(user, userId);
             const matchedUser = findUser(userId);
             const profile = {
               name: matchedUser?.label ?? '',
               imgSrc: `${matchedUser?.value}.png`,
             };
+            let chatStatus = status;
+            if (!chatStatus) {
+              chatStatus = messageId ? '1' : '-1';
+            }
 
             return (
               <li className={styles.item} key={`${userId}_${datetime}`}>
                 <Chat
                   profile={profile}
                   message={text}
-                  time={datetime}
+                  time={parsedDatetime}
                   direction={direction}
+                  status={chatStatus}
                 />
               </li>
             );
