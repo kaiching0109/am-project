@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { IconButton } from '../button/button.component';
 import constants from '../../constants/constants';
@@ -7,6 +7,7 @@ import Textarea from '../textarea/textarea.component';
 import styles from './chatForm.module.scss';
 import { ChannelContext } from '../../context/channelContext';
 import { ChatContext } from '../../context/chatContext';
+import useDebounce from '../../hooks/useDebounce';
 
 const POST_MESSAGE_QUERY = gql`
   mutation PostMessage($channelId: String!, $text: String!, $userId: String!) {
@@ -27,6 +28,21 @@ export default function ChatForm(): React.ReactElement {
   // eslint-disable-next-line operator-linebreak
   const [postMessage] = useMutation(POST_MESSAGE_QUERY);
   const [message, setMessage] = useState('');
+  const debouncedInputText = useDebounce(message, 500);
+
+  useEffect(() => {
+    // storing input name
+    const temp = localStorage.getItem('tempMessage') ?? '';
+    setMessage(temp);
+  }, []);
+
+  useEffect(() => {
+    if (debouncedInputText) {
+      localStorage.setItem('tempMessage', debouncedInputText);
+    } else {
+      localStorage.setItem('tempMessage', '');
+    }
+  }, [debouncedInputText]);
 
   // TODO: error handling and testing
   /**
@@ -62,6 +78,7 @@ export default function ChatForm(): React.ReactElement {
       updateChat(idx, '-1');
     } finally {
       setMessage('');
+      localStorage.setItem('tempMessage', '');
     }
   };
 
