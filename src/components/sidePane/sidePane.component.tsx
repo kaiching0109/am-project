@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import Channel from '../channel/channel.component';
-import Select from '../select/select.component';
+import Channel from 'components/channel/channel.component';
+import Select from 'components/select/select.component';
+import constant from 'constants/constants';
+import context from 'context';
 import styles from './sidePane.module.scss';
-import constant from '../../constants/constants';
-import { UserContext } from '../../context/userContext';
+
+const { context: { UserContext } } = context;
 
 export default function SidePane(): React.ReactElement {
   const { updateUser } = useContext(UserContext);

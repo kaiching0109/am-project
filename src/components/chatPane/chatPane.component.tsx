@@ -1,20 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Chat from '../chat/chat.component';
+import Chat from 'components/chat/chat.component';
+import context from 'context';
+import { toTimeString } from 'helpers/parser';
+import { findUser } from 'helpers/utility';
+import { Direction } from 'components/chat/chat.type';
+import constant from 'constants/constants';
 import styles from './chatPane.module.scss';
-import { UserContext } from '../../context/userContext';
-import { ChannelContext } from '../../context/channelContext';
-import { toTimeString } from '../../helpers/parser';
-import { findUser } from '../../helpers/utility';
-import { ChatContext } from '../../context/chatContext';
+import { Chat as ChatType } from './chatPane.type';
 
-export interface Message {
-  messageId?: string;
-  text: string;
-  datetime: string;
-  userId: string;
-  status?: '1' | '-1' | '0';
-}
+const { context: { UserContext, ChannelContext, ChatContext } } = context;
 
 const GET_MESSAGE_BT_CHANNEL = gql`
   query FetchLatestMessages($channelId: String!) {
@@ -37,40 +32,36 @@ export default function ChatPane(): React.ReactElement {
     },
   });
 
-  // eslint-disable-next-line consistent-return
   useEffect((): void => {
     if (!loading && !error) {
       const { fetchLatestMessages: result } = data;
       const parseResult = [...result].reverse();
       setChat(parseResult);
     }
-  }, [loading, error, data]);
+  }, [loading, error, data, setChat]);
 
-  // eslint-disable-next-line max-len
-  // eslint-disable-next-line prettier/prettier
-  const getDirection = (current: string, userId: string): 'l' | 'r' => (current === userId ? 'r' : 'l');
+  const getDirection = (current: string, userId: string): Direction => (current === userId ? 'r' : 'l');
 
   const renderChatList = (): React.ReactElement => {
-    let component = <p>There is no message.</p>;
+    let component = <p>{constant.TEXT.EMPTY_MESSAGE_TEXT}</p>;
     if (loading) {
-      component = <p>loading...</p>;
+      component = <p>{constant.TEXT.LOADING_TEXT}</p>;
     } else if (error) {
       component = (
         <div>
-          <p>Something went wrong...</p>
-          <p>Please try refreshing the page.</p>
+          <p>{constant.TEXT.ERROR_TEXT}</p>
+          <p>{constant.TEXT.REFRESH_TEXT}</p>
         </div>
       );
     }
     if (!data) return component;
 
-    const { fetchLatestMessages: result } = data;
-
-    return result.length > 0 ? (
+    return chatList.length > 0 ? (
       <ul>
         {chatList.map(
-          // eslint-disable-next-line object-curly-newline
-          ({ messageId, text, datetime, userId, status }: Message) => {
+          ({
+            messageId, text, datetime, userId, status,
+          }: ChatType) => {
             const parsedDatetime = toTimeString(datetime);
             const direction = getDirection(user, userId);
             const matchedUser = findUser(userId);

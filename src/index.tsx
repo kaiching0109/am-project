@@ -11,7 +11,7 @@ import App from './components/app/app.component';
 import UserProvider from './context/userContext';
 import ChannelProvider from './context/channelContext';
 import ChatProvider from './context/chatContext';
-import WithCompose from './hoc/withCompose/withCompose';
+import { WithCompose } from './hoc';
 // import "regenerator-runtime/runtime";
 
 const httpLink = createHttpLink({

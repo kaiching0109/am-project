@@ -1,9 +1,7 @@
-@import '../../styles/mixins';
+@import 'styles/mixins';
 
 .root {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center-center;
   padding-left: .25rem;
   padding-right: .25rem;
 

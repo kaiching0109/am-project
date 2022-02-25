@@ -1,5 +1,4 @@
-// import { Message } from '../components/chatPane/chatPane.component';
-import constants from '../constants/constants';
+import constants from 'constants/constants';
 
 const { USERS, CHANNELS } = constants;
 

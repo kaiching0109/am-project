@@ -1,10 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import constants from '../constants/constants';
-
-export interface Channel {
-  id: string;
-  name: string;
-}
+import { Channel } from 'components/channel/channel.type';
+import constants from 'constants/constants';
 
 interface ChannelProviderProps {
   children: React.ReactElement;

@@ -21,12 +21,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  // "paths": {
-  //   "@components": ["./src/components"],
-  //   "@pages": ["./src/pages"],
-  //   "@helpers": ["./src/helpers"],
-  //   "@styles": ["./src/styles"]
-  // },
+  "paths": {
+    "@components/*": ["./components"],
+    "@hoc/*": ["src/hoc/*"],
+    "@pages/*": ["src/pages"],
+    "@helpers/*": ["src/helpers"],
+    "@styles/*": ["./src/styles"]
+  },
   "include": [
     "src",
     "typed-css.d.ts",

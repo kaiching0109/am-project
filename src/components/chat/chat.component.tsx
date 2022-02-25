@@ -1,23 +1,15 @@
 import React from 'react';
-import IconText from '../iconText/iconText.component';
-import Profile from '../profile/profile.component';
+import IconText from 'components/iconText/iconText.component';
+import Profile from 'components/profile/profile.component';
 import styles from './chat.module.scss';
+import { Direction, Profile as ProfileType, Status } from './chat.type';
 
-/**
- * status:
- * 1: success
- * 0: no status
- * -1: error
- */
-interface ChatProps {
+export interface ChatProps {
   message: string;
-  status?: '1' | '0' | '-1';
+  status?: Status;
   time: string;
-  profile: {
-    imgSrc: string;
-    name: string;
-  };
-  direction: 'l' | 'r';
+  profile: ProfileType;
+  direction: Direction;
 }
 
 export default function Chat(props: ChatProps): React.ReactElement {

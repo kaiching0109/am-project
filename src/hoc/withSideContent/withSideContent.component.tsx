@@ -1,5 +1,5 @@
 import React from 'react';
-import SidePane from '../../components/sidePane/sidePane.component';
+import SidePane from 'components/sidePane/sidePane.component';
 import styles from './withSideContent.module.scss';
 
 interface WithSideContentProps {

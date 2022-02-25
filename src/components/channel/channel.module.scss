@@ -1,7 +1,4 @@
-// ont-weight: 600;
-//     font-size: .85rem;
-//     display: inline-block;
-@import '../../styles/mixins';
+@import 'styles/mixins';
 
 .button {
   @include font($size: .85rem, $weight: 600);

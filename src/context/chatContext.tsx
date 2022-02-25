@@ -1,13 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from 'react';
-
-export interface Chat {
-  messageId?: string;
-  text: string;
-  datetime: string;
-  userId: string;
-  status?: '1' | '0' | '-1';
-}
+import { Chat } from 'components/chatPane/chatPane.type';
+import { Status } from 'components/chat/chat.type';
 
 export type LoadingChat = Omit<Chat, 'datetime' | 'status'>;
 
@@ -45,7 +39,7 @@ export default function ChatProvider(props: ChatProviderProps) {
   }, []);
 
   const updateChat = React.useCallback(
-    (idx: number, status: '1' | '0' | '-1', messageId?: string) => {
+    (idx: number, status: Status, messageId?: string) => {
       setChatList((prevChartList) => {
         const targetChat = prevChartList[idx];
         const newChatList = [...prevChartList];

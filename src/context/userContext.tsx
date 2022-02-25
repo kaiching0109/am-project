@@ -2,10 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { findUser } from '../helpers/utility';
 import constants from '../constants/constants';
 
-// interface IUser {
-//   user: string;
-// }
-
 interface UserProviderProps {
   children: React.ReactElement;
 }

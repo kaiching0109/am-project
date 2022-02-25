@@ -1,14 +1,11 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable object-curly-newline */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable max-len */
 import React, { useCallback, useContext } from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
-import constants from '../../constants/constants';
-import { IconButton } from '../../components/button/button.component';
+import constants from 'constants/constants';
+import { IconButton } from 'components/button/button.component';
+import { ChatContext } from 'context/chatContext';
+import { ChannelContext } from 'context/channelContext';
+import { Chat as ChatType } from 'components/chatPane/chatPane.type';
 import styles from './withReadMore.module.scss';
-import { Chat, ChatContext } from '../../context/chatContext';
-import { ChannelContext } from '../../context/channelContext';
 
 const GET_MORE_MESSAGE = gql`
   query FetchMoreMessages(
@@ -50,76 +47,37 @@ export default function WithReadMore(
   const [fetchLatestMessages] = useLazyQuery(GET_MESSAGE_BT_CHANNEL);
 
   const fetchMoreMessagesMemo = useCallback(
-    (messageId: string, old: boolean): ReturnType<typeof fetchMoreMessages> =>
-      fetchMoreMessages({
-        variables: {
-          channelId: channel.id,
-          messageId,
-          old,
-        },
-      }),
+    (messageId: string, old: boolean): ReturnType<typeof fetchMoreMessages> => fetchMoreMessages({
+      variables: {
+        channelId: channel.id,
+        messageId,
+        old,
+      },
+    }),
     [channel, fetchMoreMessages],
   );
 
   const fetchMoreMessagesNew = useCallback(
-    (messageId: string): ReturnType<typeof fetchMoreMessages> =>
-      fetchMoreMessagesMemo(messageId, false),
+    (messageId: string): ReturnType<typeof fetchMoreMessages> => fetchMoreMessagesMemo(messageId, false),
     [fetchMoreMessagesMemo],
   );
 
   const fetchMoreMessagesOld = useCallback(
-    (messageId: string): ReturnType<typeof fetchMoreMessages> =>
-      fetchMoreMessagesMemo(messageId, true),
+    (messageId: string): ReturnType<typeof fetchMoreMessages> => fetchMoreMessagesMemo(messageId, true),
     [fetchMoreMessagesMemo],
   );
 
-  const getOldestMessageId = (list: Chat[]): string | undefined =>
-    list[0]?.messageId;
+  const getOldestMessageId = (list: ChatType[]): string | undefined => list[0]?.messageId;
 
-  // eslint-disable-next-line prettier/prettier
-  const getLatestMessageId = (list: Chat[]): string | undefined =>
-    list[list.length - 1]?.messageId;
+  const getLatestMessageId = (list: ChatType[]): string | undefined => list[list.length - 1]?.messageId;
 
-  // const isChatListEqual = (newChatList: Chat[]): boolean => {
-  //   const newTopMessageId = getLatestMessageId(newChatList);
-  //   const newBottomMessageId = getOldestMessageId(newChatList);
-  //   const topMessageId = getLatestMessageId(chatList);
-  //   const bottomMessageId = getOldestMessageId(chatList);
-  //   return (
-  //     newTopMessageId !== topMessageId || newBottomMessageId !== bottomMessageId
-  //   );
-  // };
-
-  // const findTopChatIndex = (newChatList: Chat[]) => {
-  //   const top10Chat = chatList.splice(10);
-  //   const newTopMessageId = getLatestMessageId(newChatList);
-  //   return top10Chat.findIndex(
-  //     (chat: Chat) => newTopMessageId === chat.messageId,
-  //   );
-  // };
-
-  const findMatchedChatIndex = (newChatList: Chat[]) => {
+  const findMatchedChatIndex = (newChatList: ChatType[]) => {
     const bottom10Chat = chatList.slice(0, 10);
-    // const matchedIndex = getLatestMessageId(newChatList);
     const matchedIndex = getOldestMessageId(newChatList);
-    console.log({ chatList, bottom10Chat, newChatList, matchedIndex });
     return bottom10Chat.findIndex(
-      (chat: Chat) => matchedIndex === chat.messageId,
+      (chat: ChatType) => matchedIndex === chat.messageId,
     );
   };
-
-  // const isChaptListOverlap = (newChatList: Chat[]): boolean => {
-
-  //   const newTopMessageId = getLatestMessageId(newChatList);
-  //   const newBottomMessageId = getOldestMessageId(newChatList);
-  //   const bottomMessageId = getOldestMessageId(chatList);
-
-  //   const topMessageId = getLatestMessageId(chatList);
-  //   const bottomMessageId = getOldestMessageId(chatList);
-  //   return (
-  //     newTopMessageId !== topMessageId || newBottomMessageId !== bottomMessageId
-  //   );
-  // };
 
   const handleReadMoreNewClick = async () => {
     const messageId = getLatestMessageId(chatList);

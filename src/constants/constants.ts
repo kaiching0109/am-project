@@ -18,6 +18,10 @@ const TEXT = {
   TEXTAREA_TEXT_PLACEHOLDER: 'Type your message here...',
   BUTTON_TEXT_READ_MORE: 'Read More',
   BUTTON_TEXT_SEND: 'Send Message',
+  LOADING_TEXT: 'Loading...',
+  ERROR_TEXT: 'Something went wrong...',
+  EMPTY_MESSAGE_TEXT: 'There is no message.',
+  REFRESH_TEXT: 'Please try refreshing the page.',
 };
 
 const URL = {

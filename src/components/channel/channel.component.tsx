@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { ChannelContext } from '../../context/channelContext';
-import constants from '../../constants/constants';
+import { ChannelContext } from 'context/channelContext';
+import constants from 'constants/constants';
 import styles from './channel.module.scss';
 
 export default function Channel(): React.ReactElement {

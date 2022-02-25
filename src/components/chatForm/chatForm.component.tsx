@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-import { IconButton } from '../button/button.component';
-import constants from '../../constants/constants';
-import { UserContext } from '../../context/userContext';
-import Textarea from '../textarea/textarea.component';
+import { IconButton } from 'components/button/button.component';
+import constants from 'constants/constants';
+import context from 'context';
+import Textarea from 'components/textarea/textarea.component';
+import useDebounce from 'hooks/useDebounce';
 import styles from './chatForm.module.scss';
-import { ChannelContext } from '../../context/channelContext';
-import { ChatContext } from '../../context/chatContext';
-import useDebounce from '../../hooks/useDebounce';
+
+const {
+  context: { UserContext, ChannelContext, ChatContext },
+} = context;
 
 const POST_MESSAGE_QUERY = gql`
   mutation PostMessage($channelId: String!, $text: String!, $userId: String!) {
@@ -24,8 +26,6 @@ export default function ChatForm(): React.ReactElement {
   const { user } = useContext(UserContext);
   const { channel } = useContext(ChannelContext);
   const { chatList, addChat, updateChat } = useContext(ChatContext);
-  // eslint-disable-next-line max-len
-  // eslint-disable-next-line operator-linebreak
   const [postMessage] = useMutation(POST_MESSAGE_QUERY);
   const [message, setMessage] = useState('');
   const debouncedInputText = useDebounce(message, 500);
@@ -86,9 +86,7 @@ export default function ChatForm(): React.ReactElement {
    * TODO:
    * @param event React.ChangeEvent<HTMLTextAreaElement>
    */
-  const handleInputMessageChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => {
+  const handleInputMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputMessage = event.target.value;
     setMessage(inputMessage ?? '');
   };
@@ -102,11 +100,7 @@ export default function ChatForm(): React.ReactElement {
         onChange={handleInputMessageChange}
       />
       <div className={styles.formAction}>
-        <IconButton
-          type="submit"
-          icon="fa fa-send"
-          label={constants.TEXT.BUTTON_TEXT_SEND}
-        />
+        <IconButton type="submit" icon="fa fa-send" label={constants.TEXT.BUTTON_TEXT_SEND} />
       </div>
     </form>
   );

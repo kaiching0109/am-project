@@ -19,14 +19,13 @@
   "plugins": [
     "react",
     "@typescript-eslint",
-    "react-hooks",
-    "prettier"
+    "react-hooks"
   ],
   "rules": {
     "max-len": [
       "warn",
       {
-        "code": 80
+        "code": 120
       }
     ],
     "no-use-before-define": "off",
@@ -56,9 +55,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
-    "prettier/prettier": [
-      "error"
-    ]
+    "import/no-unresolved": "off"
   },
   "settings": {
     "import/resolver": {
