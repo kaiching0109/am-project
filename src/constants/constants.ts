@@ -22,6 +22,8 @@ const TEXT = {
   ERROR_TEXT: 'Something went wrong...',
   EMPTY_MESSAGE_TEXT: 'There is no message.',
   REFRESH_TEXT: 'Please try refreshing the page.',
+  NO_MORE_OLDER_TEXT: 'There are no more older messages!',
+  NO_MORE_LATEST_TEXT: 'There are no more latest messages!',
 };
 
 const URL = {

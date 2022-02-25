@@ -1,11 +1,13 @@
+/* eslint-disable no-alert */
 import React, { useCallback, useContext } from 'react';
 import { gql, useLazyQuery } from '@apollo/client';
 import constants from 'constants/constants';
 import { IconButton } from 'components/button/button.component';
-import { ChatContext } from 'context/chatContext';
-import { ChannelContext } from 'context/channelContext';
+import context from 'context';
 import { Chat as ChatType } from 'components/chatPane/chatPane.type';
 import styles from './withReadMore.module.scss';
+
+const { context: { ChatContext, ChannelContext } } = context;
 
 const GET_MORE_MESSAGE = gql`
   query FetchMoreMessages(
@@ -102,6 +104,8 @@ export default function WithReadMore(
     const { data } = await fetchFunc();
     if (data && data?.length !== 0) {
       setChat([...data.reverse(), ...chatList]);
+    } else {
+      alert(constants.TEXT.NO_MORE_LATEST_TEXT);
     }
   };
 
@@ -130,6 +134,8 @@ export default function WithReadMore(
     const parsedData = [...data].reverse();
     if (findMatchedChatIndex(parsedData) === -1) {
       setChat([...parsedData, ...chatList]);
+    } else {
+      alert(constants.TEXT.NO_MORE_OLDER_TEXT);
     }
   };
 
